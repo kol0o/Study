@@ -4,8 +4,6 @@ import org.openqa.selenium.WebElement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.Duration;
-
 public class LinkTest extends BaseTest {
 
     @Test
