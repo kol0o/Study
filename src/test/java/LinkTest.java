@@ -25,6 +25,5 @@ public class LinkTest extends BaseTest {
         System.out.println(actualTitle);
 
         assertEquals(expectedTitle, actualTitle, "The page title does not match the expected title.");
-
     }
 }
