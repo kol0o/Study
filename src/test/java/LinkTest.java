@@ -9,7 +9,7 @@ public class LinkTest extends BaseTest {
     @Test
     public void testLinkIsWorking() {
         // Находим элемент ссылки по XPath
-        WebElement link = driver.findElement(By.xpath("//*[@id='pay-section']/div/div/div[2]/section/div/a"));
+        WebElement link = driver.findElement(By.xpath("//section[@class='pay']//a[text()='Подробнее о сервисе']"));
 
         // Получаем URL из атрибута href
         String url = link.getAttribute("href");

@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,7 +9,7 @@ public class TitleVerificationTest extends BaseTest {
     @Test
     public void testTitleText() {
         // Находим элемент по его тегу h2 и классу pay__wrapper
-        WebElement titleElement = driver.findElement(By.xpath("//div[@class='pay__wrapper']//h2"));
+        WebElement titleElement = driver.findElement(By.xpath("//section[@class='pay']/div[@class='pay__wrapper']/h2"));
 
         // Получаем текст элемента
         String titleText = titleElement.getText();

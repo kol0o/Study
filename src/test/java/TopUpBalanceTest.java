@@ -16,16 +16,14 @@ public class TopUpBalanceTest extends BaseTest {
 
         // Обработка всплывающего окна cookies
         try {
-            // Пытаемся найти и нажать кнопку принятия cookies, если она существует
             WebElement cookiesButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[text()='Принять']")));
             cookiesButton.click();
+            System.out.println("Всплывающее окно cookies нажато");
         } catch (Exception e) {
-            // Если кнопка не найдена, можно записать лог или просто игнорировать
             System.out.println("Всплывающее окно cookies не найдено или уже закрыто.");
         }
 
         WebElement phoneInput = driver.findElement(By.xpath("//*[@id='connection-phone']"));
-
         String phoneNumber = "297777777";
         phoneInput.sendKeys(phoneNumber);
         Thread.sleep(2000);
@@ -33,7 +31,7 @@ public class TopUpBalanceTest extends BaseTest {
         String enteredText = phoneInput.getAttribute("value");
         assertEquals("(29)777-77-77", enteredText, "The phone number entered in the input field does not match the expected value.");
 
-        WebElement sumInput = driver.findElement(By.xpath("//*[@id=\"connection-sum\"]"));
+        WebElement sumInput = driver.findElement(By.xpath("//*[@id='connection-sum']"));
         String sum = "10";
         sumInput.sendKeys(sum);
         Thread.sleep(2000);
@@ -42,9 +40,20 @@ public class TopUpBalanceTest extends BaseTest {
         assertEquals(sum, enteredText, "The sum entered in the input field does not match the expected value ");
 
         WebElement submitButton = driver.findElement(By.xpath("//*[@id='pay-connection']/button"));
-
         submitButton.click();
+
+        // Ожидание появления фрейма
+        WebElement iframeElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//iframe[@src='https://checkout.bepaid.by/widget_v2/index.html']")));
+
+        // Переключение на фрейм
+        driver.switchTo().frame(iframeElement);
+
+        // Выполнение действий внутри фрейма
+        WebElement elementInFrame = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(), 'Оплата: Услуги связи')]")));
+        String frameText = elementInFrame.getText();
+        System.out.println("Содержимое элемента во фрейме: " + frameText);
+
+        // Возвращение к основному контенту страницы
+        driver.switchTo().defaultContent();
     }
 }
-
-
