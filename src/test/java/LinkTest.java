@@ -1,28 +1,22 @@
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LinkTest extends BaseTest {
 
     @Test
     public void testLinkIsWorking() {
-        // Находим элемент ссылки по XPath
-        WebElement link = driver.findElement(By.xpath("//section[@class='pay']//a[text()='Подробнее о сервисе']"));
+        LinkPage linkPage = new LinkPage(driver);
 
-        // Получаем URL из атрибута href
-        String url = link.getAttribute("href");
-
-        // Переходим по ссылке
+        // Получаем URL ссылки и переходим по ней
+        String url = linkPage.getMoreInfoLinkUrl();
         assert url != null;
         driver.navigate().to(url);
-        System.out.println(url);
+        System.out.println("Navigated to: " + url);
 
-        // Проверяем, что страница загрузилась успешно по заголовку
+        // Проверяем, что страница загрузилась с ожидаемым заголовком
         String expectedTitle = "Порядок оплаты и безопасность интернет платежей";
         String actualTitle = driver.getTitle();
-        System.out.println(actualTitle);
+        System.out.println("Page title: " + actualTitle);
 
         assertEquals(expectedTitle, actualTitle, "The page title does not match the expected title.");
     }
