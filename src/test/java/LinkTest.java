@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LinkTest extends BaseTest {
@@ -7,9 +8,11 @@ public class LinkTest extends BaseTest {
     public void testLinkIsWorking() {
         LinkPage linkPage = new LinkPage(driver);
 
-        // Получаем URL ссылки и переходим по ней
+        // Получаем URL ссылки
         String url = linkPage.getMoreInfoLinkUrl();
-        assert url != null;
+        assertNotNull(url, "The URL should not be null.");
+
+        // Переходим по ссылке
         driver.navigate().to(url);
         System.out.println("Navigated to: " + url);
 
